@@ -1,106 +1,67 @@
 # Serverless Architectures with Amazon DynamoDB and Amazon Kinesis Streams with AWS Lambda
 
 ## Lab Overview
-This is a two-part lab. In part one of the lab, you create a Lambda function from a blueprint, create an Amazon Kinesis Stream, then trigger the function with data from your stream and monitor the process with Amazon CloudWatch.
-
-In part two of the lab, you learn the basics of event-driven programming using Amazon DynamoDB, DynamoDB Streams, and AWS Lambda. You learn the process of building a real-world application using triggers that combine DynamoDB Streams and Lambda.
+1. **Part 1** - create a Lambda function from a blueprint, create an Amazon Kinesis Stream, then trigger the function with data from your stream and monitor the process with Amazon CloudWatch.
+2. **Part 2** - Learn the basics of event-driven programming using Amazon DynamoDB, DynamoDB Streams, and AWS Lambda. You learn the process of building a real-world application using triggers that combine DynamoDB Streams and Lambda.
 
 ## OBJECTIVES
-By the end of this lab, you will be able to do the following:
-
-Create an AWS Lambda function from a blueprint
-Create an Amazon Kinesis Stream
-Use Amazon CloudWatch to monitor Kinesis event data triggering your Lambda function
-Create an Amazon DynamoDB table and insert items
-Enable the Amazon DynamoDB Streams feature
-Configure and troubleshoot Lambda functions
-
-## PREREQUISITES
-To successfully complete this lab, you should be familiar with DynamoDB and Kinesis by taking relevant introductory labs. Node.js and Python programming skills are recommended, although full solution code is provided. You should have completed the Introduction to AWS Lambda self-paced lab.
-
-Please be sure that pop-ups are enabled for this lab.
-
-## OTHER AWS SERVICES
-Other AWS Services than the ones needed for this lab are disabled by IAM policy during your access time in this lab. In addition, the capabilities of the services used in this lab are limited to what is required by the lab and in some cases are even further limited as an intentional aspect of the lab design. Expect errors when accessing other services or performing actions beyond those provided in this lab guide.
+1. By the end of this lab, you will be able to do the following:
+    1. Create an AWS Lambda function from a blueprint
+    1. Create an Amazon Kinesis Stream
+    1. Use Amazon CloudWatch to monitor Kinesis event data triggering your Lambda function
+    1. Create an Amazon DynamoDB table and insert items
+    1. Enable the Amazon DynamoDB Streams feature
+    1. Configure and troubleshoot Lambda functions
 
 ## About the Technologies
 ### AWS LAMBDA
-Lambda is a compute service that provides resizable compute capacity in the cloud to make web-scale computing easier for developers. You can upload your code to AWS Lambda and the service can run the code on your behalf using AWS infrastructure. AWS Lambda supports multiple coding languages, including Node.js, Java, or Python. After you upload your code and create a Lambda function, AWS Lambda takes care of provisioning and managing the servers used to run the code.
-
-In this lab, you use AWS Lambda as an event-driven compute service where AWS Lambda runs your code in response to changes to data in an SNS topic and an Amazon S3 bucket.
-
-You can use AWS Lambda in two ways:
-
-As an event-driven compute service where AWS Lambda runs your code in response to events, such as uploading image files as you see in this lab.
-howitworks
-
-As a compute service to run your code in response to HTTP requests using Amazon API Gateway or API calls.
-mobilebackend
-
-Lambda passes on to you the financial benefits of Amazonâ€™s scale. AWS Lambda executes your code only when needed and scales automatically, from a few requests per day to thousands per second. With these capabilities, you can use Lambda to easily build data processing triggers for AWS services like Amazon S3 and Amazon DynamoDB, process streaming data stored in Amazon Kinesis, or create your own back end that operates at AWS scale, performance, and security.
-
-This lab guide explains basic concepts of AWS in a step by step fashion. However, it can only give a brief overview of Lambda concepts. For further information, see the official Amazon Web Services Documentation for Lambda at https://aws.amazon.com/documentation/lambda/. For pricing details, see https://aws.amazon.com/lambda/pricing/.
+1. Lambda is a compute service that provides resizable compute capacity in the cloud to make web-scale computing easier for developers. 
+1. You can upload your code to AWS Lambda and the service can run the code on your behalf using AWS infrastructure. 
+1. AWS Lambda supports multiple coding languages, including Node.js, Java, or Python. 
+1. After you upload your code and create a Lambda function, AWS Lambda takes care of provisioning and managing the servers used to run the code.
+1. In this lab, you use AWS Lambda as an event-driven compute service where AWS Lambda runs your code in response to changes to data in an SNS topic and an Amazon S3 bucket.
+1. You can use AWS Lambda in two ways:
+    1. As an event-driven compute service where AWS Lambda runs your code in response to events, such as uploading image files as you see in this lab.
+    ![img](https://us-west-2-aws-training.s3.us-west-2.amazonaws.com/courses/spl-51/v3.2.13.prod-a2fdb582/images/lambda-howitworks.png)
+    1. As a compute service to run your code in response to HTTP requests using Amazon API Gateway or API calls.
+    ![img](https://us-west-2-aws-training.s3.us-west-2.amazonaws.com/courses/spl-51/v3.2.13.prod-a2fdb582/images/lambda-mobilebackend.png)
+1. Lambda passes on to you the financial benefits of Amazonâ€™s scale. 
+1. AWS Lambda executes your code only when needed and scales automatically, from a few requests per day to thousands per second. 
+1. With these capabilities, you can use Lambda to easily build data processing triggers for AWS services like Amazon S3 and Amazon DynamoDB, process streaming data stored in Amazon Kinesis, or create your own back end that operates at AWS scale, performance, and security.
 
 ### LAMBDA BLUEPRINTS
-Blueprints are sample configurations of event sources and Lambda functions that do minimal processing for you. Most blueprints process events from specific event sources, such as Amazon S3 or DynamoDB. For example, if you select an s3-get-object blueprint, it provides sample code that processes an object-created event published by Amazon S3 that Lambda receives as parameter.
-
-When you create a new AWS Lambda function, you can use a blueprint that best aligns with your scenario. You can then customize the blueprint as needed. You do not have to use a blueprint (you can author a Lambda function and configure an event source separately).
+1. Blueprints are sample configurations of event sources and Lambda functions that do minimal processing for you. 
+1. Most blueprints process events from specific event sources, such as Amazon S3 or DynamoDB. 
+1. For example, if you select an s3-get-object blueprint, it provides sample code that processes an object-created event published by Amazon S3 that Lambda receives as parameter.
+1. When you create a new AWS Lambda function, you can use a blueprint that best aligns with your scenario. You can then customize the blueprint as needed. You do not have to use a blueprint (you can author a Lambda function and configure an event source separately).
 
 ### AMAZON DYNAMODB
-Amazon DynamoDB is a fast and flexible NoSQL database service for all applications that need consistent, single-digit millisecond latency at any scale. It is a fully managed database and supports both document and key-value data models. Its flexible data model and reliable performance make it a great fit for mobile, web, gaming, ad-tech, IoT, and many other applications. For further information, see the official Amazon Web Services Documentation for DynamoDB at https://aws.amazon.com/documentation/dynamodb/.
-
-
+1. Amazon DynamoDB is a NoSQL db service for all applications that need consistent, single-digit millisecond latency at any scale. 
+1. It is a fully managed db and supports both document and key-value data models. 
+1. Its flexible data model and reliable performance make it a great fit for mobile, web, gaming, ad-tech, IoT, and many other applications.
+![img](https://us-west-2-aws-training.s3.us-west-2.amazonaws.com/courses/spl-51/v3.2.13.prod-a2fdb582/images/lambda-etl.png)
 
 ### AMAZON KINESIS
-Amazon Kinesis is a fully managed service for real-time processing of streaming data at massive scale. Amazon Kinesis can collect and process hundreds of terabytes of data per hour from hundreds of thousands of sources, allowing you to easily write applications that process information in real-time, from sources such as web site click-streams, marketing and financial information, manufacturing instrumentation and social media, and operational logs and metering data.
-
-With Amazon Kinesis applications, you can easily send data to a variety of other services such as Amazon Simple Storage Service (Amazon S3), Amazon DynamoDB, Amazon Lambda, or Amazon Redshift. In a few clicks and a couple of lines of code, you can start building applications which respond to changes in your data stream in seconds, at any scale, while only paying for the resources you use. For further information, see the official Amazon Web Services Documentation for Kinesis at http://aws.amazon.com/documentation/kinesis/.
-
-
+1. Amazon Kinesis is a fully managed service for real-time processing of streaming data at massive scale. 
+1. Amazon Kinesis can collect and process hundreds of terabytes of data per hour from hundreds of thousands of sources, allowing you to easily write applications that process information in real-time, from sources such as web site click-streams, marketing and financial information, manufacturing instrumentation and social media, and operational logs and metering data.
+1. With Amazon Kinesis applications, you can easily send data to a variety of other services such as Amazon Simple Storage Service (Amazon S3), Amazon DynamoDB, Amazon Lambda, or Amazon Redshift. 
+1. In a few clicks and a couple of lines of code, you can start building applications which respond to changes in your data stream in seconds, at any scale, while only paying for the resources you use.
+![img](https://us-west-2-aws-training.s3.us-west-2.amazonaws.com/courses/spl-51/v3.2.13.prod-a2fdb582/images/lambda-iot.png)
 
 ## Part 1: Event-Driven Programming with Amazon Kinesis and AWS Lambda
-In the first part of this lab, you learn event-driven programming with Kinesis and Lambda.
-
 ### Task 1: Create an Amazon Kinesis Stream
-In this task, you create an Amazon Kinesis stream.
+1. **AWS Management Console** -> **Kinesis** -> Choose **Create data stream** service.
+1. In **Data stream configuration** section, configure: **Data stream** name: Enter **Lab-Stream**
+1. In **Data stream capacity** section, configure: **Capacity Mode**: Choose **Provisioned**, **Provisioned shards**: Enter **1**
+1. Each shard supports a pre-defined capacity, as shown in the Total **data stream capacity** section.
+1. This lab only requires one shard, but applications requiring more capacity can simply request more shards.
+1. Choose **Create data stream**.
+1. A message is displayed on the page with the following message: **Data stream Lab-Stream successfully created..**
+1. **Congratulations!** You have successfully created the Amazon Kinesis data stream.
 
-In the AWS Management Console, use the AWS search bar to search for 
-
-Kinesis
- and then choose the service from the list of results.
-
-Choose Create data stream.
-
- The Create data stream page is displayed.
-
-In Data stream configuration section, configure:
-Data stream name: Enter 
-
-Lab-Stream
-In Data stream capacity section, configure:
-Capacity Mode: Choose  Provisioned
-Provisioned shards: Enter 
-
-1
-Each shard supports a pre-defined capacity, as shown in the Total data stream capacity section. This lab only requires one shard, but applications requiring more capacity can simply request more shards.
-
-Choose Create data stream.
-A message is displayed on the page with the following message:
-
- Data stream Lab-Stream successfully created..
- Congratulations! You have successfully created the Amazon Kinesis data stream.
-
-Task 2: Create a Lambda Function
-In this task, you define an AWS Lambda function that will be triggered by data coming into the stream.
-
-In the AWS Management Console, use the AWS search bar to search for 
-
-Lambda
- and then choose the service from the list of results.
-
-Choose Create a function.
-
-You start by selecting a Lambda blueprint. Blueprints are pre-built for you and can be customized to suit your specific needs
+### Task 2: Create a Lambda Function
+1. **AWS Management Console** -> **Lambda** -> Choose **Create a function**.
+1. You start by selecting a Lambda blueprint. Blueprints are pre-built for you and can be customized to suit your specific needs
 
 Choose Use a blueprint .
 
