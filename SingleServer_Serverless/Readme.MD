@@ -53,13 +53,13 @@ The architecture has a client accessing Amazon S3, an Amazon EC2 instance with a
 1. **Congratulations!** You have successfully crated a static website for Ice Cream company.
 
 ### AWS Images
-!img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.0.PNG)
-!img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.1.PNG)
-!img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.2.PNG)
-!img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.3.PNG)
-!img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.4.PNG)
-!img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.5.PNG)
-!img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.6.PNG)
+![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.0.PNG)
+![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.1.PNG)
+![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.2.PNG)
+![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.3.PNG)
+![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.4.PNG)
+![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.5.PNG)
+![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.6.PNG)
 
 ## Task 2: Verify the dynamic website on Amazon EC2 is running
 1. The business starts to grow, and customers want a feature on the website where they can see an updated flavor of the day, or when a flavor sells out. 
@@ -85,7 +85,7 @@ The architecture has a client accessing Amazon S3, an Amazon EC2 instance with a
 1. **Congratulations!** You have successfully verified the dynamic website using a MySQL database to show inventory of available ice cream flavors is working as expected.
 
 ### AWS Images
-!img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab2.0.PNG)
+![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab2.0.PNG)
 
 ## Task 3: Update dynamic website to a serverless solution using DynamoDB for the MySQL database
 1. Business has been steadily growing but with a recent video of a customer’s experience that has since gone viral, the AnyCompany Ice Cream website has experienced more web traffic than the current MySQL database server can keep up with. 
@@ -138,10 +138,10 @@ The architecture has a client accessing Amazon S3, an Amazon EC2 instance with a
 1. **Congratulations!** You have successfully added a new ice cream flavor and price to the Amazon DynamoDB Products table, migrated the website to use Amazon DynamoDB instead of MySQL for the database, and refreshed the website to reveal your new ice cream flavor.
 
 ### AWS Images
-!img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab3.0.PNG)
-!img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab3.1.PNG)
-!img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab3.2.PNG)
-!img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab3.3.PNG)
+![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab3.0.PNG)
+![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab3.1.PNG)
+![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab3.2.PNG)
+![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab3.3.PNG)
 
 ## Conclusion
 1. Congratulations! You now have successfully:
