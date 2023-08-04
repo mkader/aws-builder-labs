@@ -1,3 +1,4 @@
+https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%3A470679935125%3Ablueprintversion%2Fspl-51-PromoLab%3Av2/en-US
 # Serverless Architectures with Amazon DynamoDB and Amazon Kinesis Streams with AWS Lambda
 
 ## Lab Overview
