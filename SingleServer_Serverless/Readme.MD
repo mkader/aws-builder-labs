@@ -34,32 +34,22 @@ The architecture has a client accessing Amazon S3, an Amazon EC2 instance with a
     1. The [website hosting](https://docs.aws.amazon.com/AmazonS3/latest/userguide/EnableWebsiteHosting.html) feature is enabled to allow this bucket to host a website.
     1. Additionally, a **bucket policy** was added to allow **s3:GetObject** permissions to this bucket and the files within the bucket.
     1. The **index document** property has been set to **index.html** in the root of the bucket. This is a file you just copied to the bucket.
-
-### TASK 1.1: DOWNLOAD THE STATIC-SITE.ZIP FILE
-1. Download the **[static-site.zip](https://us-west-2-aws-training.s3.amazonaws.com/courses/SPL-TF-100-NWSSTS/v1.0.2.prod-0837bec4/scripts/static-site.zip)** file containing the static website files to your local machine.
-1. **Unzip** the files to a temporary directory or the desktop.
-
-### TASK 1.2: UPLOAD THE FILES TO AMAZON S3
-1. **AWS Management Console** -> choose **S3** -> Choose the bucket with **s3htmlbucket**.
+1. Download and unzip the **[static-site.zip](https://us-west-2-aws-training.s3.amazonaws.com/courses/SPL-TF-100-NWSSTS/v1.0.2.prod-0837bec4/scripts/static-site.zip)** file containing the static website files to your local machine.
+1. **AWS Management Console** -> **S3** -> Choose the bucket with **s3htmlbucket**.
 1. From local machine, drag all files and folders to the **Files and folders** area of the **Object** page.
 1. Choose **Upload** at the bottom of the page.  Expected service output: **Upload succeeded**
 1. Choose the **Close** button. Your bucket listing should look similar to the example below:
 ![](https://us-west-2-tcprod.s3.us-west-2.amazonaws.com/courses/SPL-TF-100-NWSSTS/v1.0.2.prod-0837bec4/instructions/en_us/images/bucket-layout1.png)
-
-### TASK 1.3: TEST THE STATIC S3 WEBSITE
-1. Choose the **Properties** tab located at the top of the page.
-1. Navigate to the **Static website hosting** section, located at the end of the page.
-1. Copy and paste the S3 website URL in a new browser tab to view the website.
-1. **Congratulations!** You have successfully crated a static website for Ice Cream company.
+1. Choose the **Properties** tab -> **Static website hosting** section -> browse the S3 website URL.
 
 ### AWS Images
-![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.0.PNG)
-![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.1.PNG)
-![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.2.PNG)
-![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.3.PNG)
-![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.4.PNG)
-![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.5.PNG)
-![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab1.6.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/SingleServer_Serverless/lab1.0.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/SingleServer_Serverless/lab1.1.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/SingleServer_Serverless/lab1.2.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/SingleServer_Serverless/lab1.3.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/SingleServer_Serverless/lab1.4.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/SingleServer_Serverless/lab1.5.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/SingleServer_Serverless/lab1.6.PNG)
 
 ## Task 2: Verify the dynamic website on Amazon EC2 is running
 1. The business starts to grow, and customers want a feature on the website where they can see an updated flavor of the day, or when a flavor sells out. 
@@ -75,17 +65,14 @@ The architecture has a client accessing Amazon S3, an Amazon EC2 instance with a
     1. All of these configured together, run the dynamic website you open shortly. 
     1. A dynamic site is information or web pages that are generated in real time. With a LAMP stack, customers will be able to input orders, and submit them.
 
-1. **AWS Management Console** -> **EC2** -> Choose **Instances** from the left navigation pane.
-1. Check the box next to the instance with the name  **Ice Cream**.
+1. **AWS Management Console** -> **EC2** -> **Instances** -> check **Ice Cream** name.
 
-1. **Details** tab -> browse the **Public IPv4 IP** address value. Leave this tab **open** for **task 3**.
-    1. Use HTTP and not HTTPS in the browser: **http://&lt;PUBLIC IPv4 ADDRESS&gt;**
+1. **Details** tab -> browse the **Public IPv4 IP** address (use http) value. Leave this tab **open** for **task 3**.
 1. Expected website: 
 ![img](https://us-west-2-tcprod.s3.us-west-2.amazonaws.com/courses/SPL-TF-100-NWSSTS/v1.0.2.prod-0837bec4/instructions/en_us/images/dynamic_website.png)
-1. **Congratulations!** You have successfully verified the dynamic website using a MySQL database to show inventory of available ice cream flavors is working as expected.
 
 ### AWS Images
-![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab2.0.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/SingleServer_Serverless/lab2.0.PNG)
 
 ## Task 3: Update dynamic website to a serverless solution using DynamoDB for the MySQL database
 1. Business has been steadily growing but with a recent video of a customer’s experience that has since gone viral, the AnyCompany Ice Cream website has experienced more web traffic than the current MySQL database server can keep up with. 
@@ -101,12 +88,9 @@ The architecture has a client accessing Amazon S3, an Amazon EC2 instance with a
     1. All of these configured together run the dynamic website you open shortly. A dynamic site is information or web pages that are generated in real time.
 
 ### TASK 3.1: UPDATE THE AMAZON DYNAMODB PRODUCTS TABLE WITH A NEW ICE CREAM FLAVOR
-1. **AWS Management Console** -> **DynamoDB** -> Left navigation pane, choose **Tables**.
-1. Choose the text link for the table named **Products**.
-1. Choose **Explore table items**.
+1. **AWS Console** -> **DynamoDB** -> **Tables** -> **Products** (table name) -> **Explore table items**.
 1. In the **Items returned** section, choose **Create item** and configure the following options:
-    1. **Attribute name:** id - Partition key
-    1. **Value:** 1
+    1. **Attribute name:** id - Partition key, **Value:** 1
 1. Choose Add **new attribute**  > **String** and then configure the following options:
     1. **Attribute name:** ProductFlavor, **Value:** Cinnamon-spiced Chocolate
 1. Choose Add **new attribute**  > **String** and then configure the following options:
@@ -114,8 +98,7 @@ The architecture has a client accessing Amazon S3, an Amazon EC2 instance with a
 1. Choose **Create Item**.
 
 ### TASK 3.2: UPDATE THE WEBSITE TO USE AMAZON DYNAMODB
-1. **AWS Management Console** -> **EC2** -> Check the **Ice Cream** instance name.
-1. In the top section of the console, choose the **Connect** .
+1. **AWS Console** -> **EC2** -> **Ice Cream** instance name -> choose the **Connect** .
 1. From the **Connect to instance** page, choose the **EC2 Instance Connect** tab and verify that the value for **User name** is set to **ec2-user**, then choose **Connect** .
 1. **Command:** From the terminal session copy and paste the following command to migrate the website from using the MySQL database to Amazon DynamoDB.
     1. /var/www/html/migrate-database.sh
@@ -135,17 +118,9 @@ The architecture has a client accessing Amazon S3, an Amazon EC2 instance with a
 1. **Expected website**:
 ![img](https://us-west-2-tcprod.s3.us-west-2.amazonaws.com/courses/SPL-TF-100-NWSSTS/v1.0.2.prod-0837bec4/instructions/en_us/images/website-dynamodb-product-listing.png)
 1. The website is updated with the new flavor and price listed from the Amazon DynamoDB Products table that was just created.
-1. **Congratulations!** You have successfully added a new ice cream flavor and price to the Amazon DynamoDB Products table, migrated the website to use Amazon DynamoDB instead of MySQL for the database, and refreshed the website to reveal your new ice cream flavor.
 
 ### AWS Images
-![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab3.0.PNG)
-![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab3.1.PNG)
-![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab3.2.PNG)
-![img](https://github.com/mkader/aws-builder-labs/blob/main/SingleServer_Serverless/lab3.3.PNG)
-
-## Conclusion
-1. Congratulations! You now have successfully:
-    1. Uploaded files to Amazon S3 to host a static website.
-    1. Migrated the dynamic website hosted on EC2 from using a MySQL database to using Amazon DynamoDB.
-    1. Updated the DynamoDB table with a new ice cream flavor.
-    1. Refreshed the website to reveal your new ice cream flavor.
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/SingleServer_Serverless/lab3.0.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/SingleServer_Serverless/lab3.1.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/SingleServer_Serverless/lab3.2.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/SingleServer_Serverless/lab3.3.PNG)
