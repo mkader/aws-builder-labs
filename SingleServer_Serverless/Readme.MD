@@ -89,12 +89,9 @@ The architecture has a client accessing Amazon S3, an Amazon EC2 instance with a
 
 ### TASK 3.1: UPDATE THE AMAZON DYNAMODB PRODUCTS TABLE WITH A NEW ICE CREAM FLAVOR
 1. **AWS Console** -> **DynamoDB** -> **Tables** -> **Products** (table name) -> **Explore table items**.
-1. In the **Items returned** section, choose **Create item** and configure the following options:
-    1. **Attribute name:** id - Partition key, **Value:** 1
-1. Choose Add **new attribute**  > **String** and then configure the following options:
-    1. **Attribute name:** ProductFlavor, **Value:** Cinnamon-spiced Chocolate
-1. Choose Add **new attribute**  > **String** and then configure the following options:
-    1. **Attribute name:** ProductPrice, **Value:** 7.99
+1. choose **Create item** and configure the following options: **Attribute name:** id - Partition key, **Value:** 1
+1. Choose Add **new attribute**  > **String** : **Attribute name:** ProductFlavor, **Value:** Cinnamon-spiced Chocolate
+1. Choose Add **new attribute**  > **String** : **Attribute name:** ProductPrice, **Value:** 7.99
 1. Choose **Create Item**.
 
 ### TASK 3.2: UPDATE THE WEBSITE TO USE AMAZON DYNAMODB
