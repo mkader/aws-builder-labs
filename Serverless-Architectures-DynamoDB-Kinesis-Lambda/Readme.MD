@@ -1,4 +1,5 @@
 https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%3A470679935125%3Ablueprintversion%2Fspl-51-PromoLab%3Av2/en-US
+
 # Serverless Architectures with Amazon DynamoDB and Amazon Kinesis Streams with AWS Lambda
 
 ## Lab Overview
@@ -20,7 +21,6 @@ https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%
 1. You can upload your code to AWS Lambda and the service can run the code on your behalf using AWS infrastructure. 
 1. AWS Lambda supports multiple coding languages, including Node.js, Java, or Python. 
 1. After you upload your code and create a Lambda function, AWS Lambda takes care of provisioning and managing the servers used to run the code.
-1. In this lab, you use AWS Lambda as an event-driven compute service where AWS Lambda runs your code in response to changes to data in an SNS topic and an Amazon S3 bucket.
 1. You can use AWS Lambda in two ways:
     1. As an event-driven compute service where AWS Lambda runs your code in response to events, such as uploading image files as you see in this lab.
     ![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/lambda-howitworks.png)
@@ -53,22 +53,17 @@ https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%
 ### Task 1: Create an Amazon Kinesis Stream
 1. **AWS Console** -> **Kinesis** -> **Create data stream** service.
 1. In **Data stream configuration** section, configure: **Data stream** name: Enter **Lab-Stream**
-1. In **Data stream capacity** section, configure: **Capacity Mode**: Choose **Provisioned**, **Provisioned shards**: Enter **1**
+1. In **Data stream capacity** section, configure: **Capacity Mode**: **Provisioned**, **Provisioned shards**: Enter **1**
 1. Each shard supports a pre-defined capacity, as shown in the Total **data stream capacity** section.
 1. This lab only requires one shard, but applications requiring more capacity can simply request more shards.
-1. Choose **Create data stream**.
-1. A message is displayed on the page with the following message: **Data stream Lab-Stream successfully created..**
-1. **Congratulations!** You have successfully created the Amazon Kinesis data stream.
+1. Choose **Create data stream** -> Msg displayed **Data stream Lab-Stream successfully created.**
 
 ### Task 2: Create a Lambda Function
 1. **AWS Console** -> **Lambda** -> **Create a function** ->  **Use a blueprint**
     1. Using a Lambda blueprint. Blueprints are pre-built for you and can be customized to suit your specific needs
 1. **Basic information** section -> **Select blueprint** search box -> enter **kinesis-process-record-python**.
-1. Choose **Process records sent to a Kinesis strea.** -> Enter below details:
-    1. **Function name**: **ProcessKinesisRecords**
-    1. **Execution role**: Choose **Use an existing role**
-    1. **Existing role**: Select **lambda_basic_execution** from the drop-down list.
-1. **Kinesis trigger** section -> **Kinesis stream**: Enter **Lab-Stream**
+1. **Function name**: **ProcessKinesisRecords**, **Execution role**: **Use an existing role**, **Existing role**: Select **lambda_basic_execution**.
+1. **Kinesis trigger** section -> **Kinesis stream**: select **Lab-Stream**
     1. This will configure the Lambda function so that it is triggered whenever data comes into the Kinesis stream you created earlier.
 1. Leave all other settings on the page at the default values.
 1. Examine the Lambda blueprint displayed in the **Lambda function code** section. It does the following:
@@ -79,34 +74,27 @@ https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%
 
 ### Task 3: Test your Function
 1. In this task, you simulate data coming from a stream to trigger your Lambda function.
-1. Choose the **Test** tab - > The Test event page is displayed.
+1. Choose the **Test** tab -> **Event Name**: **stream** -> **Save** -> **Test**
     1. **Note:** An event template for Kinesis will be automatically selected. The event contains a simulated message arriving via Kinesis.
-1. For **Event Name**: **stream** -> Choose **Save** -> Choose **Test**
-1. The output should look similar to this: **Execution result: succeeded**
-1. A new tab with name **Execution result** will automatically open with output of the Lambda function.
-    1. You can see the following information about the Lambda execution in the Summary section: **Duration**, **Billed Duration**, **Maximum memory used**, **Function Logs**.
-1. Choose the **Test** button, another **three times**, waiting a few seconds between each test. This generates the test data for **Amazon CloudWatch**.
-1. Choose the **Monitor** tab. You can now view the **CloudWatch metrics for your Lambda function**. Metrics should be available for **Invocations and Duration**.
+1. The output -> **Execution result: succeeded**. Expand **Details** -> to see about the Lambda execution in the Summary information in th section: **Duration**, **Billed Duration**, **Maximum memory used**, **Function Logs**.
+1. **Test** -> Click **three times**, waiting a few seconds between each test. This generates the test data for **Amazon CloudWatch**.
+1. **Monitor** tab -> View the **CloudWatch metrics for your Lambda function** -> **Invocations and Duration**.
     1. If the metrics do not appear, wait a minute and then choose  **refresh**.
 
 ## Part 2: Event Driven Programing with Amazon DynamoDB and AWS Lambda
 ### Task 4: Create Tables in DynamoDB - contains scores for online games.
-1. **AWS Console** -> **DynamoDB**
-1. Choose **Create table and configure** 
+1. **AWS Console** -> **DynamoDB** -> **Create table** 
     1. **Table name**: **GameScoreRecords**, **Partition key**: **RecordID**
- and select Number from the drop-down list -> Choose **Create table**.
-1. You now create another table for linking scores to users. Choose **Create table and configure**: **Table name**: **GameScoresByUser**, **Partition key**: **Username**
- and select String from the drop-down list -> Choose **Create table.**
+ -> **Number** -> **Create table**.
+    1. **Create table** -> **Table name**: **GameScoresByUser**, **Partition key**: **Username** -> **String** -> **Create table.**
 1. You now activate DynamoDB Streams on the first table. This generates streaming data whenever there is any change to the table (insert, update, delete).
-    1. Choose the first table you created, **GameScoreRecords**.
-    1. **Exports and Streams** tab -> **DynamoDB stream** details, choose **Enable**.
-    1. **Enable DynamoDB stream** page, select: **View type:**  **New image** -> Choose **Enable stream**.
+    1. Choose **GameScoreRecords** -> **Exports and Streams** tab -> **DynamoDB stream** details -> **Turn on**.
+    1. **Enable DynamoDB stream** page, select: **View type:**  **New image** -> **Enable stream**.
 1. Any record sent to this table now sends a message via DynamoDB streams, which triggers the Lambda function.
 
 ## Task 5: Create a Lambda Function - it will be triggered by updates to your DynamoDB table.
-1. **AWS Console** -> **Lambda** -> **Create function** 
-1. You will be providing the code to run, so choose **Author from scratch**.
-1. Configure the following: **Function name:** **AggregateScoresByUser**, **Runtime:" ** Node.js 16.x**
+1. **AWS Console** -> **Lambda** -> **Create function** -> Providing the code to run, **Author from scratch**.
+1. Configure the following: **Function name:** **AggregateScoresByUser**, **Runtime:" ** Node.js 18.x**
 1. Expand  **Change default execution role** -> **Execution role**:  **Use an existing role**, **Existing role**: Select **lambda_basic_execution_dynamodb**
 1. Choose **Create function** -> Select the **Code** tab, then: **Delete** all code, **Copy and paste** this code into the **index.js** editor:
     ```
@@ -203,9 +191,8 @@ https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%
         }
     ```
     1. **Examine** the test record. It is simulating an incoming record from the GameScoreRecords table.
-1. Choose **Save** -> Choose **Test**.
-    1. **Verify:** Confirm that the Lambda function has been invoked. A banner at the top of the screen should state: **Execution result: succeeded**
-1. Expand **Details** to view the output of the Lambda function. You should see: **Successfully processed 1 records.**
+1. **Save** -> **Test** -> **Verify:** **Execution result: succeeded**
+    1. Expand **Details** to view the output of the Lambda function. You should see: **Successfully processed 1 records.**
 
 ### VERIFY IN DYNAMODB - that the data was updated in DynamoDB.
 1. **AWS Console** -> **DynamoDB** -> **Tables** -> **GameScoreByUser** -> **Actions**  dropdown menu -> choose **Explore Items**
