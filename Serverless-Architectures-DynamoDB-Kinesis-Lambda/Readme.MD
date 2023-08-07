@@ -58,6 +58,11 @@ https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%
 1. This lab only requires one shard, but applications requiring more capacity can simply request more shards.
 1. Choose **Create data stream** -> Msg displayed **Data stream Lab-Stream successfully created.**
 
+#### AWS Images
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task1.0.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task1.1.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task1.2.PNG)
+
 ### Task 2: Create a Lambda Function
 1. **AWS Console** -> **Lambda** -> **Create a function** ->  **Use a blueprint**
     1. Using a Lambda blueprint. Blueprints are pre-built for you and can be customized to suit your specific needs
@@ -72,29 +77,46 @@ https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%
     1. Print the data to the debug log
 1. At the bottom of the screen, choose **Create function**, it triggered whenever data is sent to the stream.
 
-### Task 3: Test your Function
-1. In this task, you simulate data coming from a stream to trigger your Lambda function.
-1. Choose the **Test** tab -> **Event Name**: **stream** -> **Save** -> **Test**
-    1. **Note:** An event template for Kinesis will be automatically selected. The event contains a simulated message arriving via Kinesis.
-1. The output -> **Execution result: succeeded**. Expand **Details** -> to see about the Lambda execution in the Summary information in th section: **Duration**, **Billed Duration**, **Maximum memory used**, **Function Logs**.
-1. **Test** -> Click **three times**, waiting a few seconds between each test. This generates the test data for **Amazon CloudWatch**.
-1. **Monitor** tab -> View the **CloudWatch metrics for your Lambda function** -> **Invocations and Duration**.
-    1. If the metrics do not appear, wait a minute and then choose  **refresh**.
+#### AWS Images
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task2.0.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task2.1.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task2.3.PNG)
+
+1. **Test your Function** - simulate data coming from a stream to trigger your Lambda function.
+    1. Choose the **Test** tab -> **Event Name**: **stream** -> **Save** -> **Test**
+        1. **Note:** An event template for Kinesis will be automatically selected. The event contains a simulated message arriving via Kinesis.
+    1. The output -> **Execution result: succeeded**. Expand **Details** -> to see about the Lambda execution in the Summary information in th section: **Duration**, **Billed Duration**, **Maximum memory used**, **Function Logs**.
+    1. **Test** -> Click **three times**, waiting a few seconds between each test. This generates the test data for **Amazon CloudWatch**.
+    1. **Monitor** tab -> View the **CloudWatch metrics for your Lambda function** -> **Invocations and Duration**.
+        1. If the metrics do not appear, wait a minute and then choose  **refresh**.
+
+#### AWS Images
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task2.4.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task2.5.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task2.6.PNG)
 
 ## Part 2: Event Driven Programing with Amazon DynamoDB and AWS Lambda
-### Task 4: Create Tables in DynamoDB - contains scores for online games.
+### Task 3: Create Tables in DynamoDB - contains scores for online games.
 1. **AWS Console** -> **DynamoDB** -> **Create table** 
     1. **Table name**: **GameScoreRecords**, **Partition key**: **RecordID**
  -> **Number** -> **Create table**.
     1. **Create table** -> **Table name**: **GameScoresByUser**, **Partition key**: **Username** -> **String** -> **Create table.**
 1. You now activate DynamoDB Streams on the first table. This generates streaming data whenever there is any change to the table (insert, update, delete).
     1. Choose **GameScoreRecords** -> **Exports and Streams** tab -> **DynamoDB stream** details -> **Turn on**.
-    1. **Enable DynamoDB stream** page, select: **View type:**  **New image** -> **Enable stream**.
+    1. **Enable DynamoDB stream** page, select: **View type:**  **New image** -> **Turn On stream**.
 1. Any record sent to this table now sends a message via DynamoDB streams, which triggers the Lambda function.
 
-## Task 5: Create a Lambda Function - it will be triggered by updates to your DynamoDB table.
+#### AWS Images
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task3.0.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task3.1.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task3.2.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task3.3.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task3.4.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task3.5.PNG)
+
+## Task 4: Create a Lambda Function - it will be triggered by updates to your DynamoDB table.
 1. **AWS Console** -> **Lambda** -> **Create function** -> Providing the code to run, **Author from scratch**.
-1. Configure the following: **Function name:** **AggregateScoresByUser**, **Runtime:" ** Node.js 18.x**
+1. Configure the following: **Function name:** **AggregateScoresByUser**, **Runtime:" ** Node.js 16.x**
 1. Expand  **Change default execution role** -> **Execution role**:  **Use an existing role**, **Existing role**: Select **lambda_basic_execution_dynamodb**
 1. Choose **Create function** -> Select the **Code** tab, then: **Delete** all code, **Copy and paste** this code into the **index.js** editor:
     ```
@@ -194,20 +216,29 @@ https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%
 1. **Save** -> **Test** -> **Verify:** **Execution result: succeeded**
     1. Expand **Details** to view the output of the Lambda function. You should see: **Successfully processed 1 records.**
 
+#### AWS Images
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task4.0.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task4.1.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task4.2.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task4.3.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task4.4.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task4.5.PNG)
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task4.6.PNG)
+
+
 ### VERIFY IN DYNAMODB - that the data was updated in DynamoDB.
-1. **AWS Console** -> **DynamoDB** -> **Tables** -> **GameScoreByUser** -> **Actions**  dropdown menu -> choose **Explore Items**
-    1. **Note:** This table was previously empty (you created it yourself), but you should now see an entry for Jane Doe.
+1. **AWS Console** -> **DynamoDB** -> **Tables** -> **GameScoreByUser** -> **Exploer table items** - > now see an entry for **Jane Doe**.
+
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task4.7.PNG)
 
 ### TRIGGER THE UPDATE
 1. You can perform more tests by inserting values in the Scores table, and confirming that the Lambda updates the User table.
-1. Select the **GameScoreRecords** table -> Under **Items returned** section ->choose **Create item**.
-    1. **Note**: In the following steps, you create a new item and assign it two attributes.
-1. Enter **1** in the text field next to **RecordID**.
-1. **Add new attribute**, **String** - > **Attribute Name**: **Username**, **Value**: **Enter a person’s name**
-1. **Add new attribute**, "Number" -> **Attribute Name: Score**, "Value: Enter a random score**
+1. Select the **GameScoreRecords** table -> Under **Explore table items** -> **Create item**.
+1. Enter **1** in the text field next to **RecordID**
+1. **Add new attribute**, **String** - > **Attribute Name**: **Username**, **Value**: **MAK**
+1. **Add new attribute, Number** -> **Attribute Name: Score**, "Value: 15**
 1. Choose **Create item**.
-1. **Verify**: Confirm that your new item is displayed. It should have also triggered the Lambda function, resulting in a new entry in the other table.
-1. Select the **GameScoresByUser** table.
-1. You should see that the new data you entered has been copied to the User table.
-1. **Note:** Refresh  the page, if you do not see the data populated automatically.
+1. Select the **GameScoresByUser** table -> See the new data.
 1. **Repeat the test** by adding more items in the **GameScoreRecords** table.
+
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/Serverless-Architectures-DynamoDB-Kinesis-Lambda/task4.8.PNG)
