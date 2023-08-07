@@ -25,7 +25,8 @@ https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%
 1. **Note:** You use **React functional components** throughout this lab. Conceptually, components are like JavaScript functions. They accept arbitrary inputs and return React elements describing what should appear on the screen.
 
 ### TASK 1.1: LAUNCH THE AWS CLOUD9 IDE
-1. From the **Lab** -> copy the **Cloud9Environment** URL in a new browser
+1. From the **Lab** information, before start lab -> copy the **Cloud9Environment** URL in a new browser
+https://us-west-2.console.aws.amazon.com/cloud9/ide/0f7a956a2a4e4d1a859ce64e5a99ddab
 1. This section of the IDE is where you update various file throughout this lab.
 
 ### TASK 1.2: GENERATE THE REACT DEVELOPMENT ENVIRONMENT
@@ -35,37 +36,6 @@ https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%
     npx create-react-app ec2-vendor
     ```
 1. For **Ok to proceed? (y)**,  install the package and CRA creates the environment.
-1. Expected output: Output has been truncated.
-    ```
-    ******************************
-    **** This is OUTPUT ONLY. ****
-    ******************************
-    
-    Creating a new React app in /home/ec2-user/environment/ec2-vendor.
-    
-    Success! Created ec2-vendor at /home/ec2-user/environment/ec2-vendor
-    Inside that directory, you can run several commands:
-    
-      npm start
-        Starts the development server.
-    
-      npm run build
-        Bundles the app into static files for production.
-    
-      npm test
-        Starts the test runner.
-    
-      npm run eject
-        Removes this tool and copies build dependencies, configuration files
-        and scripts into the app directory. If you do this, you canâ€™t go back!
-    
-    We suggest that you begin by typing:
-    
-      cd ec2-vendor
-      npm start
-    
-    Happy hacking!
-    ```
 1. Explore the **ec2-vendor** directory structure of the app.
     1. **node_modules** contains dependencies used by the app.
     1. **public** contains your static files. index.html is the page template and must exist in this directory.
@@ -84,7 +54,7 @@ https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%
     cd ~/environment/ec2-vendor
     npm run start
     ```
-1. **AWS Cloud9 toolbar** -> **Preview** -> **Preview Running Application**.
+1. **AWS Cloud9 toolbar** -> **Preview** -> **Preview Running Application** - you see react spinning logo.
 
 ## Task 2: Update the React app to use traditional HTML elements for the EC2 Vendor app
 1. In this task, you remove the CRA-created content and use standard HTMl elements to build an outline of your app.
@@ -92,10 +62,6 @@ https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%
     ```
     cd ~/environment/ec2-vendor/src
     rm -f *
-    ```
-1. **Note:** See **1st terminal window**, notice how the compiler returns errors. This is because the local running app compiles itself whenever the app changes and you have just removed the JavaScript entry point.
-1. From **2nd terminal window** and run the command to copy the HTML outline code into the app:
-    ```
     cp ~/environment/lab-resources/frontend/example1/* ~/environment/ec2-vendor/src
     ```
 1. **Refresh** the preview.  Explore the output code in ec2-vendor/src/App.js:
@@ -134,7 +100,7 @@ https://learn.labs.awsevents.com/sa/lab/arn%3Aaws%3Alearningcontent%3Aus-east-1%
     ```
 1. Refresh the preview.
 ![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/React-Amplify-Cloud9-AMI-Lambda/task4.png)
-    1. Explore the code in <App />:
+1. Explore the code in <App />:
     1. To be able to use states, you **import useState** from react at the top of the file.
     1. The states are defined immediately after the function definition. The syntax is **const [value, setValue] = useState(defaultValue)**. Note that setvalue is a function that allows updates to value.
     1. The **isLaunching and isSigningOut states** are set to false initially. Notice on their respective buttons’ onClick actions, you use **setIsLaunching and setIsSigningOut** to set the states to true. The Amplify UI component library’s &lt;Button /> component has a **isLoading** property, which when set to true, disables the button and displays the text in the loadingText property with a spinning circle.
@@ -253,7 +219,7 @@ cp -rp ~/environment/lab-resources/backend/ec2VendorApi/* ~/environment/ec2-vend
     1. Your example function contains simple conditional statements to call functions depending on the input:
         1. GET HTTP method
             1. /vendor/ami: query EC2 for Amazon Linux 2 AMIs based on the architecture
-    /vendor/instance: query EC2 for running EC2 instances based on the owner tag
+            1. /vendor/instance: query EC2 for running EC2 instances based on the owner tag
         1. POST HTTP method
             1./vendor/instance/launch: launch an EC2 instance with appropriate tagging
             1. /vendor/instance/terminate: terminate an EC2 instance given the instance ID
@@ -370,3 +336,4 @@ amplify delete
     1. AWS Amplify
 1. You used AWS Amplify to minimize heavy lifting and created a first iteration of a PoC. 
 1. By using Amplify, you gain development agility and can focus more on business needs.
+![img](https://raw.githubusercontent.com/mkader/aws-builder-labs/main/React-Amplify-Cloud9-AMI-Lambda/FinalArchitecture.png)
